@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Bolis Artesanales | Pepino, Limón y Jamaica</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Poppins', system-ui, -apple-system, 'Roboto', sans-serif;
+            background: linear-gradient(145deg, #fef9e4 0%, #fff7e8 100%);
+            color: #2d3e2b;
+            scroll-behavior: smooth;
+        }
+
+        /* contenedor principal */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1.5rem;
+        }
+
+        /* encabezado */
+        .header {
+            text-align: center;
+            padding: 2rem 0 1rem;
+        }
+
+        .badge {
+            background: #c0e0b0;
+            color: #1f4f1c;
+            display: inline-block;
+            padding: 0.3rem 1rem;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #2c6e2c, #f9b23f, #b23c1c);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            text-shadow: 2px 2px 12px rgba(0,0,0,0.05);
+            margin-bottom: 0.5rem;
+        }
+
+        .tagline {
+            font-size: 1.2rem;
+            color: #5a6e4a;
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+
+        /* tarjetas de sabores */
+        .sabores {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .card {
+            background: white;
+            border-radius: 48px;
+            padding: 1.8rem 1.5rem 2rem;
+            width: 260px;
+            text-align: center;
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.15);
+            transition: transform 0.2s ease, box-shadow 0.2s;
+            backdrop-filter: blur(2px);
+            border: 1px solid rgba(255,255,200,0.6);
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 40px -12px rgba(0, 0, 0, 0.2);
+        }
+
+        .emoji-sabor {
+            font-size: 4.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .card h3 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .card p {
+            color: #6b4e2e;
+            font-weight: 500;
+            margin: 0.5rem 0;
+        }
+
+        .precio {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #d9531e;
+            margin: 0.75rem 0;
+        }
+
+        .btn-sabor {
+            background: #f4cba4;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 60px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-top: 0.5rem;
+            color: #3b2a1f;
+        }
+
+        .btn-sabor:hover {
+            background: #ffb347;
+            color: white;
+            transform: scale(1.02);
+        }
+
+        /* promo especial */
+        .promo-banner {
+            background: #ffe0b5;
+            border-radius: 70px;
+            padding: 1.5rem 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            margin: 2rem 0;
+            gap: 1rem;
+            border: 2px dashed #f3a683;
+        }
+
+        .promo-text h4 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #b64926;
+        }
+
+        .promo-text p {
+            font-size: 1rem;
+        }
+
+        .cupon {
+            background: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            font-weight: bold;
+            font-family: monospace;
+            font-size: 1.4rem;
+            letter-spacing: 2px;
+            color: #2c6e2c;
+            border: 1px solid #cb8b42;
+        }
+
+        /* carrito / pedido simulado */
+        .pedido-section {
+            background: #f0f3ea;
+            border-radius: 48px;
+            padding: 2rem;
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .selector {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .item-pedido {
+            background: white;
+            padding: 0.6rem 1.2rem;
+            border-radius: 100px;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-weight: 600;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+        }
+
+        .item-pedido button {
+            background: #cfe3c3;
+            border: none;
+            font-size: 1.2rem;
+            width: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.1s;
+        }
+
+        .item-pedido span {
+            min-width: 30px;
+            text-align: center;
+            font-size: 1.2rem;
+        }
+
+        .total {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin: 1rem 0;
+        }
+
+        .btn-pedir {
+            background: #2c6e2c;
+            color: white;
+            border: none;
+            padding: 0.9rem 2.5rem;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-radius: 60px;
+            cursor: pointer;
+            transition: 0.2s;
+            box-shadow: 0 8px 14px rgba(0,0,0,0.1);
+        }
+
+        .btn-pedir:hover {
+            background: #1f521f;
+            transform: scale(1.02);
+        }
+
+        .mensaje-flotante {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #2e7d32;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 40px;
+            font-weight: 500;
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem 0 1rem;
+            font-size: 0.8rem;
+            color: #8f9e7c;
+        }
+
+        @media (max-width: 680px) {
+            h1 { font-size: 2rem; }
+            .card { width: 220px; }
+            .promo-banner { flex-direction: column; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <div class="badge"> SABORES NATURALES • HECHOS A MANO</div>
+        <h1> BOLIS  🧊</h1>
+        <div class="tagline">Pepino 🥒 • Limón 🍋 • Jamaica 🌺</div>
+        <p>¡Frescos, El antojo perfecto para este calor.</p>
+    </div>
+
+    <!-- Tarjetas de sabores -->
+    <div class="sabores">
+        <div class="card">
+            <div class="emoji-sabor">🥒</div>
+            <h3>Pepino</h3>
+            <p>Refrescante con un toque de chilito y limón</p>
+            <div class="precio">$15 MXN</div>
+        </div>
+        <div class="card">
+            <div class="emoji-sabor">🍋</div>
+            <h3>Limón</h3>
+            <p>Ácido y natural, como recién exprimido</p>
+            <div class="precio">$15 MXN</div>
+        </div>
+        <div class="card">
+            <div class="emoji-sabor">🌸</div>
+            <h3>Jamaica</h3>
+            <p>Flor de jamaica endulzada, sabor único</p>
+            <div class="precio">$15 MXN</div>
+        </div>
+    </div>

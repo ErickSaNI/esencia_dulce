@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Escencia Dulce · Cupcakes</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Quicksand', 'Poppins', 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #fff9f5 0%, #fef5ee 100%);
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .cupcakes-container {
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        .cupcakes-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .cupcakes-header h1 {
+            font-family: 'Fredoka One', cursive;
+            font-size: 3.8rem;
+            color: #a6897a;
+            text-shadow: 4px 4px 0 #fad2ba, 6px 6px 0 #f0c4aa;
+            margin-bottom: 1rem;
+        }
+
+        .cupcakes-header p {
+            font-size: 1.3rem;
+            color: #b39684;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .decoracion-header {
+            font-size: 3rem;
+            margin-top: 1rem;
+            letter-spacing: 1rem;
+            opacity: 0.7;
+        }
+
+        .filtros {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 3rem;
+        }
+
+        .filtro-btn {
+            background: #ffffff;
+            border: 2px solid #f2d1c0;
+            color: #a58471;
+            padding: 0.7rem 1.8rem;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 0 #eacab8;
+        }
+
+        .filtro-btn:hover, .filtro-btn.active {
+            background: #f9ddd0;
+            transform: translateY(2px);
+            box-shadow: 0 2px 0 #eacab8;
+            color: #7a5b48;
+        }
+
+        .cupcakes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2.5rem;
+            margin-bottom: 4rem;
+        }
+
+        .cupcake-card {
+            background: #ffffff;
+            border-radius: 60px 60px 50px 50px;
+            overflow: hidden;
+            box-shadow: 0 15px 25px -8px #ddbcab;
+            border: 3px solid #f5d9cb;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .cupcake-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 35px -12px #d4b09b;
+        }
+
+        .cupcake-imagen {
+            position: relative;
+            height: 260px;
+            overflow: hidden;
+            background: linear-gradient(135deg, #fef0e8, #fce6d9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .cupcake-imagen img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s;
+        }
+
+        .cupcake-card:hover .cupcake-imagen img {
+            transform: scale(1.05);
+        }
+
+        .favorito-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #f9ddd0;
+            border-radius: 30px;
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+            color: #c97e5a;
+            font-weight: bold;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            z-index: 2;
+        }
+
+        .cupcake-info {
+            padding: 1.8rem;
+            text-align: center;
+        }
+
+        .cupcake-nombre {
+            font-family: 'Fredoka One', cursive;
+            font-size: 1.8rem;
+            color: #b48d78;
+            margin-bottom: 0.5rem;
+        }
+
+        .cupcake-descripcion {
+            color: #9e8070;
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+            line-height: 1.4;
+        }
+
+        .cupcake-sabor {
+            display: inline-block;
+            background: #fff3ea;
+            padding: 0.3rem 1.2rem;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            color: #bb8b72;
+            margin-bottom: 1rem;
+            border: 1px solid #f2cfbb;
+        }
+
+        .cupcake-precio {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #a5775e;
+            margin: 0.8rem 0;
+        }
+
+        .cupcake-precio span {
+            font-size: 1rem;
+            color: #c9a48f;
+        }
+
+        .btn-ordenar {
+            background: #fad2ba;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #7a5b48;
+            cursor: pointer;
+            transition: all 0.2s;
+            width: 100%;
+            font-family: inherit;
+            border: 2px solid #eacab8;
+        }
+
+        .btn-ordenar:hover {
+            background: #f0c4aa;
+            transform: scale(0.98);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: #ffffff;
+            border-radius: 80px;
+            max-width: 500px;
+            width: 90%;
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+            border: 4px solid #f5d9cb;
+        }
+
+        .modal-content h2 {
+            font-family: 'Fredoka One', cursive;
+            font-size: 2.2rem;
+            color: #b48d78;
+            margin: 1rem 0;
+        }
+
+        .modal-imagen {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto;
+            border: 4px solid #f5d9cb;
+        }
+
+        .modal-precio {
+            font-size: 2rem;
+            color: #a5775e;
+            margin: 1rem 0;
+        }
+
+        .cerrar-modal {
+            position: absolute;
+            top: 15px;
+            right: 25px;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #c9a48f;
+        }
+
+        .btn-modal {
+            background: #fad2ba;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            margin-top: 1rem;
+            cursor: pointer;
+        }
+
+        @media (max-width: 700px) {
+            body {
+                padding: 1rem;
+            }
+            .cupcakes-header h1 {
+                font-size: 2.5rem;
+            }
+            .cupcakes-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="cupcakes-container">
+        <div class="cupcakes-header">
+            <h1>✨ nuestros cupcakes ✨</h1>
+            <p>Hechos con amor y la mejor presentación</p>
+      </div>
+
+
+        <div class="cupcakes-grid" id="cupcakesGrid"></div>
+    </div>
+
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <span class="cerrar-modal">&times;</span>
+            <img class="modal-imagen" id="modalImagen" src="" alt="">
+            <h2 id="modalNombre"></h2>
+            <p id="modalDescripcion"></p>
+            <div class="modal-precio" id="modalPrecio"></div>
+            <button class="btn-modal" id="modalBtn">✨ agregar al pedido ✨</button>
+        </div>
+    </div>
+
+    <button onclick="window.location.href='../index.html'" style="
+    background: #fad2ba;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 60px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #7a5b48;
+    cursor: pointer;
+    margin: 20px auto;
+    display: block;
+    font-family: 'Quicksand', sans-serif;
+    box-shadow: 0 5px 0 #eacab8;
+    transition: all 0.2s;
+    text-align: center;
+">
+    🏠 ← Volver al Menú Principal
+</button>
+
+    <script>
+        // Base de datos de cupcakes con IMÁGENES incorporadas
+        const cupcakes = [
+            {
+                id: 1,
+                nombre: "Red Velvet",
+                descripcion: "Bizcocho suave de red velvet con crema de queso",
+                precio: 15.00,
+                emoji: "♥️",
+                imagen: "https://images.unsplash.com/photo-1614707267537-b85aaf00c4b7?w=400&h=300&fit=crop",
+                favorito: true
+            },
+            {
+                id: 2,
+                nombre: "chocolate",
+                descripcion: "bizcocho suave, sabor chocolate y con crema de queso",
+                precio: 20.00,
+                emoji: "🪄",
+                imagen: "https://images.unsplash.com/photo-1550617931-e17a7b70dce2?w=400&h=300&fit=crop",
+                favorito: false
+            },
+         ];
+
+        let filtroActual = "todos";
+
+        function renderizarCupcakes() {
+            const grid = document.getElementById("cupcakesGrid");
+            const cupcakesFiltrados = filtroActual === "todos" 
+                ? cupcakes 
+                : cupcakes.filter(c => c.sabor === filtroActual);
+            
+            grid.innerHTML = cupcakesFiltrados.map(cupcake => `
+                <div class="cupcake-card" data-id="${cupcake.id}">
+                    <div class="cupcake-imagen">
+                        <img src="${cupcake.imagen}" alt="${cupcake.nombre}">
+                        ${cupcake.favorito ? '<div class="favorito-badge">⭐ favorito</div>' : ''}
+                    </div>
+                    <div class="cupcake-info">
+                        <h3 class="cupcake-nombre">${cupcake.nombre} ${cupcake.emoji}</h3>
+                        <p class="cupcake-descripcion">${cupcake.descripcion}</p>
+                        <div class="cupcake-precio">$${cupcake.precio.toLocaleString()}<span> c/u</span></div>
+                    
+                    </div>
+                </div>
+            `).join("");
+
+            document.querySelectorAll(".btn-ordenar").forEach(btn => {
+                btn.addEventListener("click", (e) => {
+                    e.stopPropagation();
+                    const id = parseInt(btn.dataset.id);
+                    const cupcake = cupcakes.find(c => c.id === id);
+                    abrirModal(cupcake);
+                });
+            });
+
+            document.querySelectorAll(".cupcake-card").forEach(card => {
+                card.addEventListener("click", () => {
+                    const id = parseInt(card.dataset.id);
+                    const cupcake = cupcakes.find(c => c.id === id);
+                    abrirModal(cupcake);
+                });
+            });
+        }
+
+        const modal = document.getElementById("modal");
+        const modalImagen = document.getElementById("modalImagen");
+        const modalNombre = document.getElementById("modalNombre");
+        const modalDescripcion = document.getElementById("modalDescripcion");
+        const modalPrecio = document.getElementById("modalPrecio");
+
+        function abrirModal(cupcake) {
+            modalImagen.src = cupcake.imagen;
+            modalNombre.textContent = `${cupcake.nombre} ${cupcake.emoji}`;
+            modalDescripcion.textContent = cupcake.descripcion;
+            modalPrecio.textContent = `$${cupcake.precio.toLocaleString()} c/u`;
+            modal.style.display = "flex";
+        }
+
+        function cerrarModal() {
+            modal.style.display = "none";
+        }
+
+        document.querySelector(".cerrar-modal").addEventListener("click", cerrarModal);
+        document.getElementById("modalBtn").addEventListener("click", () => {
+            alert("✨ ¡Agregado a tu pedido! ✨\nPronto nos comunicaremos contigo.");
+            cerrarModal();
+        });
+        modal.addEventListener("click", (e) => {
+            if (e.target === modal) cerrarModal();
+        });
+
+        document.querySelectorAll(".filtro-btn").forEach(btn => {
+            btn.addEventListener("click", () => {
+                document.querySelectorAll(".filtro-btn").forEach(b => b.classList.remove("active"));
+                btn.classList.add("active");
+                filtroActual = btn.dataset.filtro;
+                renderizarCupcakes();
+            });
+        });
+
+        renderizarCupcakes();
+    </script>
+</body>
+</html>
