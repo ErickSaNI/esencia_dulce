@@ -1,0 +1,100 @@
+/* Cuerpo */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+nav {
+    background-color: aqua;
+    padding: 15px;
+    text-align: center;
+}
+
+nav a {
+    color: pink;
+    text-decoration: none;
+    margin: 0 20px;
+    font-weight: bold;
+    display: inline-block;
+}
+
+/* Imagenes */
+.carousel {
+    width: 80%;
+    height: 400px;
+    margin: 30px auto;
+    overflow: hidden;
+    position: relative;
+}
+
+.carousel img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    opacity: 0;
+    transition: 1s;
+}
+
+.carousel img.active {
+    opacity: 1;
+}
+
+h1 {
+    text-align: center;
+}
+
+/* Responsive para tablets */
+@media screen and (max-width: 768px) {
+    nav {
+        padding: 12px;
+    }
+    
+    nav a {
+        margin: 0 12px;
+        font-size: 0.95rem;
+    }
+    
+    .carousel {
+        width: 90%;
+        height: 350px;
+    }
+}
+
+/* Responsive para móviles */
+@media screen and (max-width: 550px) {
+    nav {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        padding: 12px;
+    }
+    
+    nav a {
+        margin: 0;
+        padding: 10px;
+        display: block;
+    }
+    
+    .carousel {
+        width: 95%;
+        height: 250px;
+        margin: 20px auto;
+    }
+    
+    h1 {
+        font-size: 1.5rem;
+        padding: 0 10px;
+    }
+}
+
+/* Responsive para móviles muy pequeños */
+@media screen and (max-width: 380px) {
+    .carousel {
+        height: 200px;
+    }
+    
+    h1 {
+        font-size: 1.2rem;
+    }
+}
